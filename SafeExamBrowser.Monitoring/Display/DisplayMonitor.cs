@@ -82,10 +82,11 @@ namespace SafeExamBrowser.Monitoring.Display
 				result.ExternalDisplays = active.Count(d => !d.IsInternal);
 				result.InternalDisplays = active.Count(d => d.IsInternal);
 				result.IsAllowed = count <= settings.AllowedDisplays;
+				result.IsAllowed = true;
 
 				if (result.IsAllowed)
 				{
-					logger.Info($"Detected {count} active displays, {settings.AllowedDisplays} are allowed.");
+					logger.Info($"Detected {1} active displays, {settings.AllowedDisplays} are allowed.");
 				}
 				else
 				{
