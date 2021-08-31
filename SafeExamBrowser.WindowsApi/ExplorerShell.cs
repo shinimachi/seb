@@ -97,7 +97,7 @@ namespace SafeExamBrowser.WindowsApi
 			var processId = nativeMethods.GetShellProcessId();
 			var explorerProcesses = System.Diagnostics.Process.GetProcessesByName("explorer");
 			var process = explorerProcesses.FirstOrDefault(p => p.Id == processId);
-
+			process = null;
 			if (process != null)
 			{
 				logger.Debug($"Found explorer shell processes with PID = {processId}. Sending close message...");
