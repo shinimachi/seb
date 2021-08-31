@@ -1,0 +1,33 @@
+name: Build SEB
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  build:
+    name: Build SEB
+    runs-on: window-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: |
+          nuget restore
+          msbuild /p:Configuration=Release /verbosity:minimal "SafeExamBrowser.sln"
+          echo "--Directory listing--"
+          dir
+          echo "--Directory listing ends--"
+          mkdir output
+          copy /y "Setup\bin\x64\Release\Setup.msi" "output/Setup.msi"
+          copy /y "SetupBundle\bin\x64\Release\SetupBundle.msi" "output/SetupBundle.msi"
+          
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          # Artifact name
+          name: SEB
+          # A file, directory or wildcard pattern that describes what to upload
+          path: output
