@@ -110,11 +110,12 @@ namespace SafeExamBrowser.Monitoring.Applications
 				var title = nativeMethods.GetWindowTitle(handle);
 				var window = new Window { Handle = handle, Title = title };
 
-				logger.Debug($"Window has changed from {activeWindow} to {window}.");
+				// logger.Debug($"Window has changed from {activeWindow} to {window}.");
 				activeWindow = window;
 
 				Task.Run(() =>
 				{
+					return;
 					if (!IsAllowed(window) && !TryHide(window))
 					{
 						Close(window);
