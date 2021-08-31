@@ -23,8 +23,8 @@ jobs:
           dir
           echo "--Directory listing ends--"
           mkdir output
-          copy /y "Setup\bin\x64\Release\Setup.msi" "output/Setup.msi"
-          copy /y "SetupBundle\bin\x64\Release\SetupBundle.msi" "output/SetupBundle.msi"
+          copy "Setup\bin\x64\Release\Setup.msi" "output/Setup.msi"
+          copy "SetupBundle\bin\x64\Release\SetupBundle.exe" "output/SetupBundle.exe"
           
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.4
