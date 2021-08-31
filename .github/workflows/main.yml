@@ -20,7 +20,7 @@ jobs:
           nuget restore
           msbuild /p:Configuration=Release /verbosity:minimal "SafeExamBrowser.sln"
           echo "--Directory listing--"
-          dir
+          tree
           echo "--Directory listing ends--"
           mkdir output
           copy "Setup\bin\x64\Release\Setup.msi" "output/Setup.msi"
