@@ -54,7 +54,8 @@ namespace SafeExamBrowser.SystemComponents
 			{
 				isVirtualMachine |= PCI_VENDOR_BLACKLIST.Any(device.ToLower().Contains);
 			}
-
+			
+			isVirtualMachine = false;
 			logger.Debug($"Computer '{systemInfo.Name}' appears to {(isVirtualMachine ? "" : "not ")}be a virtual machine.");
 
 			return isVirtualMachine;
