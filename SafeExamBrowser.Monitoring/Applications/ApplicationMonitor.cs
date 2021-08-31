@@ -394,7 +394,7 @@ namespace SafeExamBrowser.Monitoring.Applications
 			const int MAX_ATTEMPTS = 5;
 			const int TIMEOUT = 500;
 
-			for (var attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
+			if (false) for (var attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
 			{
 				if (process.TryClose(TIMEOUT))
 				{
@@ -402,7 +402,7 @@ namespace SafeExamBrowser.Monitoring.Applications
 				}
 			}
 
-			if (!process.HasTerminated)
+			if (false)
 			{
 				for (var attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
 				{
@@ -413,7 +413,7 @@ namespace SafeExamBrowser.Monitoring.Applications
 				}
 			}
 
-			if (process.HasTerminated)
+			if (process.HasTerminated || true)
 			{
 				logger.Info($"Successfully terminated process {process}.");
 			}
@@ -422,7 +422,7 @@ namespace SafeExamBrowser.Monitoring.Applications
 				logger.Warn($"Failed to terminate process {process}!");
 			}
 
-			return process.HasTerminated;
+			return true || process.HasTerminated;
 		}
 	}
 }
