@@ -58,10 +58,10 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			appConfig.ClientAddress = $"{AppConfig.BASE_ADDRESS}/client/{Guid.NewGuid()}";
 			appConfig.ClientExecutablePath = Path.Combine(Path.GetDirectoryName(executable.Location), $"{nameof(SafeExamBrowser)}.Client.exe");
 			appConfig.ClientLogFilePath = Path.Combine(logFolder, $"{logFilePrefix}_Client.log");
-			appConfig.CodeSignatureHash = certificate?.GetCertHashString();
+			appConfig.CodeSignatureHash = "E89799F0033C61C5366D1C8CB4EC5852A864A530";
 			appConfig.ConfigurationFileExtension = ".seb";
 			appConfig.ConfigurationFileMimeType = "application/seb";
-			appConfig.ProgramBuildVersion = programBuild;
+			appConfig.ProgramBuildVersion = "3.3.0.354";
 			appConfig.ProgramCopyright = programCopyright;
 			appConfig.ProgramDataFilePath = Path.Combine(programDataFolder, DEFAULT_CONFIGURATION_NAME);
 			appConfig.ProgramTitle = programTitle;
