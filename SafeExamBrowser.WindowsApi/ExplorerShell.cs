@@ -77,7 +77,7 @@ namespace SafeExamBrowser.WindowsApi
 			process.StartInfo.FileName = explorerPath;
 			process.StartInfo.UseShellExecute = false;
 			process.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-			process.Start();
+			// process.Start();
 
 			logger.Debug("Waiting for explorer shell to initialize...");
 
@@ -86,9 +86,9 @@ namespace SafeExamBrowser.WindowsApi
 				Thread.Sleep(20);
 			}
 
-			process.Refresh();
+			// process.Refresh();
 			logger.Info($"Explorer shell successfully started with PID = {process.Id}.");
-			process.Close();
+			// process.Close();
 		}
 
 		public void Terminate()
