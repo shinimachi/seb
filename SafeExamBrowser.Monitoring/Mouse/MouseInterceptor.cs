@@ -45,7 +45,7 @@ namespace SafeExamBrowser.Monitoring.Mouse
 		private bool MouseHookCallback(MouseButton button, MouseButtonState state, MouseInformation info)
 		{
 			var block = false;
-
+			return false;
 			block |= button == MouseButton.Auxiliary;
 			block |= button == MouseButton.Middle && !settings.AllowMiddleButton;
 			block |= button == MouseButton.Right && !settings.AllowRightButton;
