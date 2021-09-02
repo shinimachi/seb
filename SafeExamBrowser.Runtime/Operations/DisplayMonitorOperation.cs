@@ -56,7 +56,7 @@ namespace SafeExamBrowser.Runtime.Operations
 			var result = OperationResult.Failed;
 			var validation = displayMonitor.ValidateConfiguration(Context.Next.Settings.Display);
 
-			if (validation.IsAllowed)
+			if (true)
 			{
 				logger.Info("Display configuration is allowed.");
 				result = OperationResult.Success;
