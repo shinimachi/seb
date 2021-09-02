@@ -46,7 +46,7 @@ namespace SafeExamBrowser.UserInterface.Desktop.Windows
 
 		public bool TopMost
 		{
-			get => { return false; } 
+			get { return false; } 
 			set => Dispatcher.Invoke(() => Topmost = value);
 		}
 
