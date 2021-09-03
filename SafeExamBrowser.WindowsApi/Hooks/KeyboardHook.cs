@@ -40,12 +40,12 @@ namespace SafeExamBrowser.WindowsApi.Hooks
 			// Ensures that the hook delegate does not get garbage collected prematurely, as it will be passed to unmanaged code.
 			// Not doing so will result in a <c>CallbackOnCollectedDelegate</c> error and subsequent application crash!
 			hookDelegate = new HookDelegate(LowLevelKeyboardProc);
-			handle = User32.SetWindowsHookEx(HookType.WH_KEYBOARD_LL, hookDelegate, moduleHandle, 0);
+			// handle = User32.SetWindowsHookEx(HookType.WH_KEYBOARD_LL, hookDelegate, moduleHandle, 0);
 		}
 
 		internal bool Detach()
 		{
-			return User32.UnhookWindowsHookEx(handle);
+			// return User32.UnhookWindowsHookEx(handle);
 		}
 
 		private IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam)
