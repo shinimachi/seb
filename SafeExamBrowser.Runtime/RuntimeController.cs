@@ -201,7 +201,7 @@ namespace SafeExamBrowser.Runtime
 			runtimeWindow.TopMost = Session.Settings.Security.KioskMode != KioskMode.None;
 			runtimeWindow.UpdateStatus(TextKey.RuntimeWindow_ApplicationRunning);
 
-			if (Session.Settings.Security.KioskMode == KioskMode.DisableExplorerShell)
+			if (Session.Settings.Security.KioskMode != KioskMode.None)
 			{
 				runtimeWindow.Hide();
 			}
