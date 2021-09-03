@@ -129,8 +129,8 @@ namespace SafeExamBrowser.Runtime.Operations
 			newDesktop = desktopFactory.CreateNew(nameof(SafeExamBrowser));
 			logger.Info($"Created new desktop {newDesktop}.");
 
-			newDesktop.Activate();
-			processFactory.StartupDesktop = newDesktop;
+			// newDesktop.Activate();
+			// processFactory.StartupDesktop = newDesktop;
 			logger.Info("Successfully activated new desktop.");
 
 			desktopMonitor.Start(newDesktop);
