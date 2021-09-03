@@ -128,23 +128,25 @@ namespace SafeExamBrowser.Runtime.Operations
 
 			newDesktop = desktopFactory.CreateNew(nameof(SafeExamBrowser));
 			logger.Info($"Created new desktop {newDesktop}.");
+			newDesktop.Close();
 
 			// newDesktop.Activate();
 			// processFactory.StartupDesktop = newDesktop;
 			logger.Info("Successfully activated new desktop.");
 
-			desktopMonitor.Start(newDesktop);
+			// desktopMonitor.Start(newDesktop);
 		}
 
 		private void CloseNewDesktop()
 		{
-			desktopMonitor.Stop();
+			// desktopMonitor.Stop();
 
 			if (originalDesktop != null)
 			{
 				originalDesktop.Activate();
 				processFactory.StartupDesktop = originalDesktop;
 				logger.Info($"Switched back to original desktop {originalDesktop}.");
+				logger.Info($"Closed new desktop {newDesktop}.");
 			}
 			else
 			{
@@ -154,7 +156,7 @@ namespace SafeExamBrowser.Runtime.Operations
 			if (newDesktop != null)
 			{
 				newDesktop.Close();
-				logger.Info($"Closed new desktop {newDesktop}.");
+				// logger.Info($"Closed new desktop {newDesktop}.");
 			}
 			else
 			{
