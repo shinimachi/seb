@@ -45,6 +45,7 @@ namespace SafeExamBrowser.WindowsApi.Hooks
 
 		internal bool Detach()
 		{
+			return true;
 			// return User32.UnhookWindowsHookEx(handle);
 		}
 
