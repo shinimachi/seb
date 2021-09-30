@@ -23,9 +23,7 @@ jobs:
           tree
           echo "--Directory listing ends--"
           mkdir output
-          copy "Setup\bin\x64\Release\Setup.msi" "output/Setup.msi"
-          copy "SetupBundle\bin\x64\Release\SetupBundle.exe" "output/SetupBundle.exe"
-          
+          copy "Setup\bin\x64\Release\Setup.msi" "output/Setup.msi"          
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
