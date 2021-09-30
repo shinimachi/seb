@@ -146,7 +146,6 @@ namespace SafeExamBrowser.Runtime.Operations
 				originalDesktop.Activate();
 				processFactory.StartupDesktop = originalDesktop;
 				logger.Info($"Switched back to original desktop {originalDesktop}.");
-				logger.Info($"Closed new desktop SafeExamBrowser.");
 			}
 			else
 			{
@@ -156,7 +155,7 @@ namespace SafeExamBrowser.Runtime.Operations
 			if (newDesktop != null)
 			{
 				// newDesktop.Close();
-				// logger.Info($"Closed new desktop SafeExamBrowser.");
+				logger.Info($"Closed new desktop {newDesktop}.");
 			}
 			else
 			{
