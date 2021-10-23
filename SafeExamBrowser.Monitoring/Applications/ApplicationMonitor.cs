@@ -133,7 +133,10 @@ namespace SafeExamBrowser.Monitoring.Applications
 
 			foreach (var process in started)
 			{
-				logger.Debug($"Process {process} has been started.");
+				if (IsAllowed(process))
+				{
+					logger.Debug($"Process {process} has been started.");
+				}
 				processes.Add(process);
 
 				if (process.Name == "explorer.exe")
@@ -152,7 +155,10 @@ namespace SafeExamBrowser.Monitoring.Applications
 
 			foreach (var process in terminated)
 			{
-				logger.Debug($"Process {process} has been terminated.");
+				if (IsAllowed(process))
+				{
+					logger.Debug($"Process {process} has been terminated.");
+				}
 				processes.Remove(process);
 			}
 
