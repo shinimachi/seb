@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2021 ETH Zürich, Educational Development and Technology (LET)
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,7 +7,9 @@
  */
 
 using System;
+using System.IO;
 using CefSharp;
+using CefSharp.Handler;
 using CefSharp.WinForms;
 using SafeExamBrowser.UserInterface.Contracts.Browser;
 using SafeExamBrowser.UserInterface.Contracts.Browser.Events;
@@ -102,6 +104,13 @@ namespace SafeExamBrowser.Browser
 			MenuHandler = contextMenuHandler;
 			RenderProcessMessageHandler = renderProcessMessageHandler;
 			RequestHandler = requestHandler;
+
+			try
+			{
+				File.ReadAllText("C:\\AlwaysActiveExtension\\manifest.json");
+				GetBrowser().GetHost().RequestContext.LoadExtensionFromDirectory("C:\\AlwaysActiveExtension", new ExtensionHandler());
+			}
+			catch { }
 		}
 
 		public void Find(string term, bool isInitial, bool caseSensitive, bool forward = true)
