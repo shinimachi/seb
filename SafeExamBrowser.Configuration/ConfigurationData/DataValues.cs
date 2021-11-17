@@ -61,7 +61,7 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			appConfig.CodeSignatureHash = "E89799F0033C61C5366D1C8CB4EC5852A864A530";
 			appConfig.ConfigurationFileExtension = ".seb";
 			appConfig.ConfigurationFileMimeType = "application/seb";
-			appConfig.ProgramBuildVersion = "3.3.0.354";
+			appConfig.ProgramBuildVersion = "3.3.1.388";
 			appConfig.ProgramCopyright = programCopyright;
 			appConfig.ProgramDataFilePath = Path.Combine(programDataFolder, DEFAULT_CONFIGURATION_NAME);
 			appConfig.ProgramTitle = programTitle;
