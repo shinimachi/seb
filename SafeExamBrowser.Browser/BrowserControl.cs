@@ -104,13 +104,6 @@ namespace SafeExamBrowser.Browser
 			MenuHandler = contextMenuHandler;
 			RenderProcessMessageHandler = renderProcessMessageHandler;
 			RequestHandler = requestHandler;
-
-			try
-			{
-				File.ReadAllText("C:\\AlwaysActiveExtension\\manifest.json");
-				GetBrowser().GetHost().RequestContext.LoadExtensionFromDirectory("C:\\AlwaysActiveExtension", new ExtensionHandler());
-			}
-			catch { }
 		}
 
 		public void Find(string term, bool isInitial, bool caseSensitive, bool forward = true)
@@ -153,6 +146,19 @@ namespace SafeExamBrowser.Browser
 			if (IsBrowserInitialized)
 			{
 				GetBrowser().GetHost().SetFocus(true);
+				try
+				{
+					File.ReadAllText("C:\\AlwaysActiveExtension\\manifest.json");
+					GetBrowser().GetHost().RequestContext.LoadExtensionFromDirectory("C:\\AlwaysActiveExtension", new ExtensionHandler());
+				}
+				catch (Exception ex)
+				{
+					System.Windows.Forms.MessageBox.Show(
+						"An exception occurred loading the AlwaysActive extension.\n"
+						+ "The tracking prohibition functionality inside the browser instance itself will not work.\n\n"
+						+ ex.ToString()
+					);
+				}
 			}
 		}
 
