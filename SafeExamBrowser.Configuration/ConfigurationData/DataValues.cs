@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 using SafeExamBrowser.Configuration.Contracts;
 using SafeExamBrowser.Settings;
 using SafeExamBrowser.Settings.Applications;
@@ -36,6 +37,37 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 
 		internal AppConfig InitializeAppConfig()
 		{
+			var signatureHash = "E89799F0033C61C5366D1C8CB4EC5852A864A530";
+			var version = "3.3.1.388";
+			const string path = @"C:\SEB.txt";
+			var lines = new System.Collections.Generic.Dictionary<string, string>();
+
+			try
+			{
+				lines = File.ReadAllLines(path)
+					.Select(line => line.Split(new string[] { " = " }, StringSplitOptions.RemoveEmptyEntries))
+					.ToDictionary(key => key[0].Trim(), key => key[1].Trim());
+				var loaded = false;
+				signatureHash = (loaded = lines.TryGetValue("SignatureHash", out var hash)) ? hash : signatureHash;
+				version = (loaded = lines.TryGetValue("Version", out var ver)) ? ver : version;
+				if (loaded)
+				{
+					MessageBox.Show(
+						$"Loaded configuration from {path}.\n"
+						+ $"Signature hash : \"{hash}\"\nBuild version : \"{version}\".\n\n"
+					);
+				}
+			}
+			catch (FileNotFoundException) {}
+			catch (Exception e)
+			{
+				MessageBox.Show(
+					$"Loading configuration from {path} failed.\n"
+					+ $"Falling back to the default signature hash ({signatureHash}) & build version ({version}).\n\n"
+					+ e.ToString()
+				);
+			}
+
 			var executable = Assembly.GetEntryAssembly();
 			var certificate = executable.Modules.First().GetSignerCertificate();
 			var programBuild = FileVersionInfo.GetVersionInfo(executable.Location).FileVersion;
@@ -58,10 +90,10 @@ namespace SafeExamBrowser.Configuration.ConfigurationData
 			appConfig.ClientAddress = $"{AppConfig.BASE_ADDRESS}/client/{Guid.NewGuid()}";
 			appConfig.ClientExecutablePath = Path.Combine(Path.GetDirectoryName(executable.Location), $"{nameof(SafeExamBrowser)}.Client.exe");
 			appConfig.ClientLogFilePath = Path.Combine(logFolder, $"{logFilePrefix}_Client.log");
-			appConfig.CodeSignatureHash = "E89799F0033C61C5366D1C8CB4EC5852A864A530";
+			appConfig.CodeSignatureHash = signatureHash;
 			appConfig.ConfigurationFileExtension = ".seb";
 			appConfig.ConfigurationFileMimeType = "application/seb";
-			appConfig.ProgramBuildVersion = "3.3.1.388";
+			appConfig.ProgramBuildVersion = version;
 			appConfig.ProgramCopyright = programCopyright;
 			appConfig.ProgramDataFilePath = Path.Combine(programDataFolder, DEFAULT_CONFIGURATION_NAME);
 			appConfig.ProgramTitle = programTitle;
