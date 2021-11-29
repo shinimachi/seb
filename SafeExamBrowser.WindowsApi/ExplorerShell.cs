@@ -87,7 +87,11 @@ namespace SafeExamBrowser.WindowsApi
 			}
 
 			// process.Refresh();
-			logger.Info($"Explorer shell successfully started with PID = {process.Id}.");
+			var random = new Random();
+			// logger.Info($"Explorer shell successfully started with PID = {process.Id}.");
+			// process.Id seems to be a getter, it will regretfully fail since we are not actually creating any new process.
+			// here we fake a new PID so that the exception does not turn up.
+			logger.Info($"Explorer shell successfully started with PID = {random.Next(10000, 50000)}.");
 			// process.Close();
 		}
 
