@@ -1,0 +1,32 @@
+orbs:
+  win: circleci/windows@2.2.0
+
+version: 2.1
+jobs:
+  build-and-test:
+    executor:
+      name: win/default
+      shell: powershell.exe
+    steps:
+      - checkout
+      - run:
+          name: Build the project
+          command: |
+            wget https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311.exe -OutFile wix311.exe
+            .\wix311.exe /install /quiet /norestart
+            nuget restore
+            msbuild /p:Configuration=Release /verbosity:minimal "SafeExamBrowser.sln"
+            Compress-Archive -Path SafeExamBrowser.Runtime\bin\x64\Release\* -DestinationPath SEB.zip
+      - store_artifacts:
+          path: SEB.zip
+          destination: SEB
+      - store_artifacts:
+          path: Setup\bin\x64\Release\Setup.msi
+          destination: SEB-installer
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  build:
+    jobs:
+      - build-and-test
