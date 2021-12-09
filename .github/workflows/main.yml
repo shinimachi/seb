@@ -20,6 +20,7 @@ jobs:
           nuget restore
           msbuild /p:Configuration=Release /verbosity:minimal "SafeExamBrowser.sln"
       - name: Upload compiled build
+        if: always()
         uses: actions/upload-artifact@v2.2.4
         with:
           # Artifact name
