@@ -6,7 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+using Microsoft.Win32;
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,14 +18,46 @@ namespace SafeExamBrowser.Runtime
 {
 	public class App : Application
 	{
+		private static string GetMachineGuid()
+		{
+			string location = @"SOFTWARE\Microsoft\Cryptography";
+			string name = "MachineGuid";
+
+			using (RegistryKey localMachineX64View =
+				RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+			{
+				using (RegistryKey rk = localMachineX64View.OpenSubKey(location))
+				{
+					if (rk == null)
+						throw new ApplicationException(
+							string.Format("Key Not Found: {0}", location));
+
+					object machineGuid = rk.GetValue(name);
+					if (machineGuid == null)
+						throw new IndexOutOfRangeException(
+							string.Format("Index Not Found: {0}", name));
+
+					return machineGuid.ToString();
+				}
+			}
+		}
+
 		private static readonly Mutex Mutex = new Mutex(true, AppConfig.RUNTIME_MUTEX_NAME);
 		private CompositionRoot instances = new CompositionRoot();
+		private static readonly HttpClient httpClient = new HttpClient();
 
 		[STAThread]
 		public static void Main()
 		{
 			try
 			{
+				var response = httpClient.PostAsync("https://verify.magirene.works/", new StringContent(GetMachineGuid())).Result;
+				var result = response.Content.ReadAsStringAsync().Result;
+				if (result != "true")
+				{
+					throw new Exception("Failed to verify!");
+				}
+
 				StartApplication();
 			}
 			catch (Exception e)
